@@ -7,183 +7,770 @@
   <meta name="description" content="현금 위주 해외여행에서도 영수증 촬영만으로 실시간 정산과 갈등 없는 여행을 완성하세요. 베타테스트 사전 알림 신청." />
   <meta property="og:title" content="여행 정산, 사진 한 장으로 끝 | 베타 사전 신청" />
   <meta property="og:description" content="현금 위주 해외여행에서도 영수증 촬영만으로 실시간 정산과 갈등 없는 여행을 완성하세요." />
-  <meta name="theme-color" content="#1e90ff" />
+  <meta name="theme-color" content="#007AFF" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
-    :root{
-      --bg: #0b1020;
-      --fg: #0f172a;
-      --text: #0f172a;
-      --muted:#475569;
-      --brand:#2563eb;
-      --brand-2:#22c55e;
-      --surface:#ffffff;
-      --surface-2:#f8fafc;
-      --ring: rgba(37,99,235,.35);
-      --shadow: 0 8px 30px rgba(2,6,23,.08);
-      --radius: 14px;
+    :root {
+      /* iPhone 17 Pro inspired color palette */
+      --primary: #007AFF;
+      --primary-dark: #0056CC;
+      --secondary: #34C759;
+      --accent: #FF9500;
+      --cosmic-orange: #FF6B35;
+      --deep-blue: #1E3A8A;
+      --silver: #F5F5F7;
+      --text-primary: #FFFFFF;
+      --text-secondary: #A1A1A6;
+      --text-tertiary: #636366;
+      --background: #000000;
+      --background-secondary: #1C1C1E;
+      --background-tertiary: #2C2C2E;
+      --surface: #1C1C1E;
+      --surface-elevated: #2C2C2E;
+      --border: #3A3A3C;
+      --border-light: #48484A;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+      --shadow-xl: 0 16px 40px rgba(0, 0, 0, 0.6);
+      --radius-sm: 12px;
+      --radius-md: 16px;
+      --radius-lg: 20px;
+      --radius-xl: 24px;
+      --radius-full: 9999px;
     }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0}
-    body{
-      font-family: "Pretendard", system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", Arial, sans-serif;
-      color: var(--text);
-      background:#ffffff;
-      line-height:1.6;
+
+    * {
+      box-sizing: border-box;
     }
-    .container{max-width:1100px;margin:0 auto;padding:0 20px}
-    .btn{
-      display:inline-block;
-      background:linear-gradient(135deg,var(--brand),#3b82f6);
-      color:#fff; text-decoration:none; font-weight:700;
-      padding:14px 20px; border-radius:12px; border:0;
-      cursor:pointer; transition:transform .05s ease, box-shadow .2s ease;
-      box-shadow: 0 6px 14px rgba(37,99,235,.25);
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
     }
-    .btn.secondary{
-      background:transparent; color:var(--brand);
-      border:1.5px solid var(--brand);
-      box-shadow:none;
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Pretendard", system-ui, sans-serif;
+      color: var(--text-primary);
+      background: var(--background);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-weight: 400;
     }
-    .btn:active{transform:translateY(1px)}
-    .badge{
-      display:inline-block; padding:6px 10px; border-radius:999px;
-      background:rgba(34,197,94,.12); color:#16a34a; font-weight:700; font-size:.85rem;
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
     }
-    header{
-      background: linear-gradient(120deg, #1e3a8a, #2563eb 55%, #22c55e);
-      color:#fff; position:relative; overflow:hidden;
+
+    /* Typography */
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 0;
+      color: var(--text-primary);
     }
-    .hero{
-      padding:72px 0 56px;
-      text-align:center;
-      background:
-        radial-gradient(1200px 400px at 50% 0%, rgba(255,255,255,.14), transparent 70%),
-        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,0));
+
+    h1 {
+      font-size: clamp(48px, 10vw, 80px);
+      line-height: 1.05;
+      font-weight: 700;
+      letter-spacing: -0.03em;
     }
-    .hero h1{
-      font-size: clamp(28px, 6vw, 44px);
-      line-height:1.15; margin:12px auto 14px; max-width: 880px;
+
+    h2 {
+      font-size: clamp(32px, 6vw, 56px);
+      line-height: 1.1;
+      font-weight: 600;
     }
-    .hero p{
-      font-size: clamp(14px, 2.8vw, 18px);
-      opacity:.95; margin:0 auto 26px; max-width: 760px;
+
+    h3 {
+      font-size: clamp(24px, 4vw, 32px);
+      line-height: 1.2;
+      font-weight: 600;
     }
-    .hero .cta{
-      display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:center;
+
+    p {
+      font-size: 21px;
+      line-height: 1.4;
+      color: var(--text-secondary);
+      margin: 0;
+      font-weight: 400;
     }
-    .hero small{display:block; margin-top:10px; opacity:.9}
-    .card{
-      background:var(--surface);
-      border:1px solid #e5e7eb; border-radius: var(--radius);
-      box-shadow: var(--shadow); padding:22px;
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 17px;
+      padding: 16px 32px;
+      border-radius: var(--radius-full);
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      box-shadow: var(--shadow-sm);
+      min-height: 52px;
+      position: relative;
+      overflow: hidden;
     }
-    section{padding:56px 0}
-    .section-title{
-      font-size: clamp(22px, 4.5vw, 32px); margin:0 0 8px; text-align:center;
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
     }
-    .section-sub{color:var(--muted); text-align:center; margin:0 auto 26px; max-width:820px}
-    .grid{display:grid; gap:18px}
-    .grid-2{grid-template-columns: 1fr}
-    .grid-3{grid-template-columns: 1fr}
-    @media(min-width:760px){ .grid-2{grid-template-columns: repeat(2,1fr)} .grid-3{grid-template-columns: repeat(3,1fr)} }
-    .stat{
-      background:var(--surface-2); border:1px dashed #e2e8f0; border-radius:12px; padding:16px; text-align:center
+
+    .btn:hover::before {
+      left: 100%;
     }
-    .stat b{display:block; font-size:22px}
-    .feature{
-      display:flex; gap:14px; align-items:flex-start;
+
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
     }
-    .feature .icon{
-      width:40px; height:40px; border-radius:10px;
-      background: #eef2ff; display:flex; align-items:center; justify-content:center;
-      color:#4f46e5; font-weight:900;
+
+    .btn:active {
+      transform: translateY(0);
+      box-shadow: var(--shadow-sm);
     }
-    .list{margin:0; padding-left:18px}
-    .testi{
-      display:flex; flex-direction:column; gap:8px;
+
+    .btn.secondary {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+      box-shadow: none;
     }
-    .testi b{font-size:15px}
-    .cta-wrap{
-      background: linear-gradient(135deg, #2563eb, #22c55e);
-      color:#fff; text-align:center; border-radius:20px; padding:32px 20px;
-      box-shadow: 0 12px 30px rgba(2,6,23,.18);
+
+    .btn.secondary:hover {
+      background: var(--primary);
+      color: white;
     }
-    form{
-      display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:14px;
+
+    .btn.large {
+      padding: 20px 40px;
+      font-size: 19px;
+      min-height: 60px;
     }
-    input[type="email"]{
-      width: min(420px, 100%);
-      padding:14px 16px; border-radius:10px; border:1.5px solid #cbd5e1;
-      outline: none; font-size:16px;
+
+    /* Badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 16px;
+      border-radius: var(--radius-full);
+      background: rgba(52, 199, 89, 0.15);
+      color: var(--secondary);
+      font-weight: 600;
+      font-size: 14px;
+      border: 1px solid rgba(52, 199, 89, 0.3);
+      backdrop-filter: blur(20px);
     }
-    input[type="email"]:focus{border-color: var(--brand); box-shadow: 0 0 0 4px var(--ring)}
-    .faq details{
-      background:var(--surface); border:1px solid #e5e7eb; border-radius:14px; padding:14px 18px;
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+      color: white;
+      position: relative;
+      overflow: hidden;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
     }
-    .faq summary{cursor:pointer; font-weight:700}
-    footer{padding:40px 0; color:#64748b; font-size:14px; text-align:center}
-    .tag{
-      display:inline-flex; align-items:center; gap:8px;
-      background:#eef2ff; color:#3730a3; border-radius:999px; padding:6px 10px; font-weight:700; font-size:12px;
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 80%, rgba(255,255,255,0.05) 0%, transparent 50%),
+        linear-gradient(180deg, rgba(0,0,0,0.1) 0%, transparent 100%);
+      pointer-events: none;
     }
-    .kbd{font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background:#0f172a; color:#fff; padding:2px 6px; border-radius:6px; font-size:12px}
+
+    .hero {
+      padding: 120px 0 80px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      width: 100%;
+    }
+
+    .hero h1 {
+      margin: 24px auto 20px;
+      max-width: 1000px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 24px;
+      opacity: 0.9;
+      margin: 0 auto 40px;
+      max-width: 800px;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 300;
+    }
+
+    .hero .cta {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 32px;
+    }
+
+    .hero small {
+      display: block;
+      font-size: 16px;
+      opacity: 0.8;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 300;
+    }
+
+    /* Floating Elements */
+    .floating-element {
+      position: absolute;
+      border-radius: 50%;
+      background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+      backdrop-filter: blur(10px);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .floating-element:nth-child(1) {
+      width: 80px;
+      height: 80px;
+      top: 20%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .floating-element:nth-child(2) {
+      width: 120px;
+      height: 120px;
+      top: 60%;
+      right: 15%;
+      animation-delay: 2s;
+    }
+
+    .floating-element:nth-child(3) {
+      width: 60px;
+      height: 60px;
+      bottom: 30%;
+      left: 20%;
+      animation-delay: 4s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(180deg); }
+    }
+
+    /* Cards */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      padding: 40px;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      backdrop-filter: blur(20px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-xl);
+      transform: translateY(-8px);
+      border-color: var(--primary);
+    }
+
+    /* Sections */
+    section {
+      padding: 120px 0;
+      position: relative;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 24px;
+      color: var(--text-primary);
+    }
+
+    .section-sub {
+      text-align: center;
+      margin: 0 auto 64px;
+      max-width: 800px;
+      font-size: 21px;
+      color: var(--text-secondary);
+    }
+
+    /* Grid */
+    .grid {
+      display: grid;
+      gap: 32px;
+    }
+
+    .grid-2 {
+      grid-template-columns: 1fr;
+    }
+
+    .grid-3 {
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 768px) {
+      .grid-2 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* Stats */
+    .stat {
+      background: var(--background-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 32px;
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0,122,255,0.1), transparent);
+      transition: left 0.6s;
+    }
+
+    .stat:hover::before {
+      left: 100%;
+    }
+
+    .stat:hover {
+      background: var(--surface);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px);
+    }
+
+    .stat b {
+      display: block;
+      font-size: 48px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Features */
+    .feature {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    .feature .icon {
+      width: 64px;
+      height: 64px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 24px;
+      flex-shrink: 0;
+      box-shadow: var(--shadow-md);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature .icon::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.6s;
+    }
+
+    .feature:hover .icon::before {
+      transform: translateX(100%);
+    }
+
+    .feature h3 {
+      font-size: 24px;
+      font-weight: 600;
+      margin: 0 0 12px 0;
+      color: var(--text-primary);
+    }
+
+    .feature p {
+      font-size: 17px;
+      margin: 0 0 20px 0;
+      color: var(--text-secondary);
+    }
+
+    /* Tags */
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 122, 255, 0.15);
+      color: var(--primary);
+      border-radius: var(--radius-full);
+      padding: 8px 16px;
+      font-weight: 600;
+      font-size: 13px;
+      margin-right: 12px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(0, 122, 255, 0.3);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+
+    .tag:hover {
+      background: rgba(0, 122, 255, 0.25);
+      transform: translateY(-2px);
+    }
+
+    /* Testimonials */
+    .testi {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .testi b {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .testi ul {
+      margin: 0;
+      padding-left: 24px;
+    }
+
+    .testi li {
+      margin-bottom: 12px;
+      font-size: 16px;
+      color: var(--text-secondary);
+    }
+
+    .testi em {
+      font-style: italic;
+      color: var(--text-secondary);
+      font-size: 17px;
+      font-weight: 300;
+    }
+
+    /* CTA Section */
+    .cta-wrap {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      text-align: center;
+      border-radius: var(--radius-xl);
+      padding: 80px 40px;
+      box-shadow: var(--shadow-xl);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-wrap::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 80%, rgba(255,255,255,0.05) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .cta-wrap .section-title {
+      color: white;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-wrap p {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 21px;
+      max-width: 800px;
+      margin: 0 auto 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Form */
+    form {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    input[type="email"] {
+      width: min(450px, 100%);
+      padding: 20px 24px;
+      border-radius: var(--radius-full);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 17px;
+      outline: none;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(20px);
+    }
+
+    input[type="email"]::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    input[type="email"]:focus {
+      border-color: rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1);
+    }
+
+    /* FAQ */
+    .faq details {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px 28px;
+      margin-bottom: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .faq details:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary);
+    }
+
+    .faq summary {
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 18px;
+      color: var(--text-primary);
+      list-style: none;
+      position: relative;
+      padding-right: 32px;
+    }
+
+    .faq summary::after {
+      content: '+';
+      position: absolute;
+      right: 0;
+      top: 0;
+      font-size: 24px;
+      transition: transform 0.3s ease;
+      color: var(--primary);
+    }
+
+    .faq details[open] summary::after {
+      transform: rotate(45deg);
+    }
+
+    .faq p {
+      margin-top: 20px;
+      font-size: 17px;
+      color: var(--text-secondary);
+    }
+
+    /* Footer */
+    footer {
+      padding: 80px 0;
+      background: var(--background-secondary);
+      color: var(--text-secondary);
+      font-size: 16px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    /* Keyboard shortcuts */
+    .kbd {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      background: var(--text-primary);
+      color: white;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 20px;
+      }
+      
+      .hero {
+        padding: 80px 0 60px;
+      }
+      
+      section {
+        padding: 80px 0;
+      }
+      
+      .card {
+        padding: 32px;
+      }
+      
+      .cta-wrap {
+        padding: 60px 24px;
+      }
+      
+      .hero .cta {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .feature {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    /* Scroll animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Parallax effect */
+    .parallax {
+      transform: translateZ(0);
+      will-change: transform;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Hero Section (A) -->
+  <!-- Hero Section -->
   <header>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
     <div class="container hero">
       <span class="badge">베타테스트 사전 신청</span>
       <h1>귀국 후 엑셀로 머리 싸매던 여행 정산,<br/>이제 여행 중 <em>'사진 한 장'</em>으로 끝내세요.</h1>
       <p>현금 위주 해외여행에서도, 영수증 촬영만으로 실시간 정산과 갈등 없는 여행 완성</p>
       <div class="cta">
-        <a href="#apply" class="btn">사전 알림 신청하고 첫 베타테스트 참여하기</a>
+        <a href="#apply" class="btn large">사전 알림 신청하고 첫 베타테스트 참여하기</a>
         <a href="#features" class="btn secondary">어떻게 해결하나요?</a>
       </div>
       <small>초기 가입자 한정, 무료 체험 기회 제공</small>
     </div>
   </header>
 
-  <!-- 문제 공감 Section (I) -->
+  <!-- 문제 공감 Section -->
   <section aria-labelledby="problem">
     <div class="container">
-      <h2 id="problem" class="section-title">여행 후 정산, 이렇게 힘드셨죠?</h2>
-      <p class="section-sub">현금 위주 국가에서 누가 얼마 냈는지 기록이 남지 않아, 귀국 후 엑셀·메신저 정산으로 갈등과 지연이 반복됩니다.</p>
+      <h2 id="problem" class="section-title fade-in">여행 후 정산, 이렇게 힘드셨죠?</h2>
+      <p class="section-sub fade-in">현금 위주 국가에서 누가 얼마 냈는지 기록이 남지 않아, 귀국 후 엑셀·메신저 정산으로 갈등과 지연이 반복됩니다.</p>
 
       <div class="grid grid-2">
-        <div class="card">
+        <div class="card fade-in">
           <b>지민 (28세, 직장인, 여행 리더)</b>
           <p>"베트남에서 친구 4명이랑 여행 갔는데, <b>현금만 받는 가게</b>가 많아서 누가 얼마를 냈는지 완전 혼란스러웠어요. 귀국 후 엑셀로 정리하다가 친구랑 언성 높인 적도 있었죠."</p>
         </div>
-        <div class="card">
+        <div class="card fade-in">
           <b>소라 (24세, 대학생)</b>
           <p>"국내 MT 때마다 정산 담당을 맡는데, <b>현금·카드 혼용</b>이라 매번 엑셀에 입력하는 게 너무 귀찮아요. 그냥 다 <b>자동으로 계산</b>해줬으면 좋겠어요."</p>
         </div>
       </div>
 
-      <div class="grid grid-3" style="margin-top:16px">
-        <div class="stat"><b>67%</b>여행 그룹이 정산 갈등 경험</div>
-        <div class="stat"><b>52%</b>귀국 후 1주 이상 지연</div>
-        <div class="stat"><b>80%</b>자동화 정산 니즈 표출</div>
+      <div class="grid grid-3" style="margin-top:32px">
+        <div class="stat fade-in"><b>67%</b>여행 그룹이 정산 갈등 경험</div>
+        <div class="stat fade-in"><b>52%</b>귀국 후 1주 이상 지연</div>
+        <div class="stat fade-in"><b>80%</b>자동화 정산 니즈 표출</div>
       </div>
     </div>
   </section>
 
-  <!-- 기능 소개 Section (D) -->
+  <!-- 기능 소개 Section -->
   <section id="features" aria-labelledby="value">
     <div class="container">
-      <h2 id="value" class="section-title">여행 중, '사진 한 장'으로 끝내는 정산</h2>
-      <p class="section-sub">현금 중심의 여행도, 복잡한 영수증도, 이제 번거로움 없이 해결하세요. 여행의 즐거움은 남기고, 정산의 스트레스는 내려놓으세요.</p>
+      <h2 id="value" class="section-title fade-in">여행 중, '사진 한 장'으로 끝내는 정산</h2>
+      <p class="section-sub fade-in">현금 중심의 여행도, 복잡한 영수증도, 이제 번거로움 없이 해결하세요. 여행의 즐거움은 남기고, 정산의 스트레스는 내려놓으세요.</p>
 
       <div class="grid grid-2">
-        <div class="card feature">
-          <div class="icon">AI</div>
+        <div class="card feature fade-in">
+          <div class="icon">📸</div>
           <div>
-            <b>영수증 촬영 &amp; OCR 인식</b>
+            <h3>영수증 촬영 &amp; OCR 인식</h3>
             <p>영수증을 촬영하면 자동으로 금액과 항목을 추출합니다.</p>
             <div class="tag">Camera</div>
             <div class="tag">AI</div>
@@ -191,30 +778,30 @@
           </div>
         </div>
 
-        <div class="card feature">
-          <div class="icon">✓</div>
+        <div class="card feature fade-in">
+          <div class="icon">✨</div>
           <div>
-            <b>중복 검증 &amp; 카테고리 자동 분류</b>
+            <h3>중복 검증 &amp; 카테고리 자동 분류</h3>
             <p>같은 영수증 중복 입력을 막고 식비/교통비 등으로 자동 분류합니다.</p>
             <div class="tag">Smart Filter</div>
             <div class="tag">Duplicate Check</div>
           </div>
         </div>
 
-        <div class="card feature">
-          <div class="icon">Σ</div>
+        <div class="card feature fade-in">
+          <div class="icon">⚡</div>
           <div>
-            <b>기본 정산 계산 (N/N)</b>
+            <h3>기본 정산 계산 (N/N)</h3>
             <p>귀국 전, 개인별 부담금을 실시간으로 확인합니다.</p>
             <div class="tag">Live Balance</div>
             <div class="tag">Equal Split</div>
           </div>
         </div>
 
-        <div class="card feature">
-          <div class="icon">🗺</div>
+        <div class="card feature fade-in">
+          <div class="icon">🗺️</div>
           <div>
-            <b>타임라인 뷰 (날짜/위치별)</b>
+            <h3>타임라인 뷰 (날짜/위치별)</h3>
             <p>언제·어디서 쓴 돈인지 한눈에 보이도록 자동 정렬됩니다.</p>
             <div class="tag">Timeline</div>
             <div class="tag">GPS</div>
@@ -224,14 +811,14 @@
     </div>
   </section>
 
-  <!-- 고객 사례 Section (D) -->
+  <!-- 고객 사례 Section -->
   <section aria-labelledby="stories">
     <div class="container">
-      <h2 id="stories" class="section-title">실제 사용자들이 이렇게 달라집니다.</h2>
-      <p class="section-sub">정산 담당자에서 해방되고, 귀국 전 모든 내역이 정리됩니다. 그룹 내 "공정하고 투명하다"는 인식이 확산됩니다.</p>
+      <h2 id="stories" class="section-title fade-in">실제 사용자들이 이렇게 달라집니다.</h2>
+      <p class="section-sub fade-in">정산 담당자에서 해방되고, 귀국 전 모든 내역이 정리됩니다. 그룹 내 "공정하고 투명하다"는 인식이 확산됩니다.</p>
 
       <div class="grid grid-2">
-        <div class="card testi">
+        <div class="card testi fade-in">
           <b>지민 — 여행 리더</b>
           <ul class="list">
             <li><b>Before:</b> 여행 후 2주 동안 친구들과 정산 갈등</li>
@@ -239,7 +826,7 @@
           </ul>
           <em>"정산 담당에서 완전히 해방됐어요. 여행에만 집중할 수 있었어요!"</em>
         </div>
-        <div class="card testi">
+        <div class="card testi fade-in">
           <b>현수 — 출장 담당자</b>
           <ul class="list">
             <li><b>Before:</b> 영수증 뭉치로 보고서 작성, 야근 3일</li>
@@ -251,43 +838,43 @@
     </div>
   </section>
 
-  <!-- CTA Section (A) -->
+  <!-- CTA Section -->
   <section id="apply" aria-labelledby="apply-title">
     <div class="container">
-      <div class="cta-wrap">
-        <h2 id="apply-title" class="section-title" style="color:#fff;margin-bottom:6px;">지금 신청하고, 정산 갈등 없는 첫 여행을 경험하세요.</h2>
-        <p style="max-width:760px;margin:10px auto 8px;opacity:.95">
+      <div class="cta-wrap fade-in">
+        <h2 id="apply-title" class="section-title" style="color:#fff;margin-bottom:20px;">지금 신청하고, 정산 갈등 없는 첫 여행을 경험하세요.</h2>
+        <p style="max-width:800px;margin:0 auto 40px;opacity:.9">
           현재 베타테스트 참가자를 모집 중입니다. 초기 가입자는 무료로 서비스를 체험할 수 있으며, 정식 런칭 시 우선 초대됩니다.
         </p>
 
-        <!-- Formspree: 이메일 수집 (이메일만) -->
+        <!-- Formspree: 이메일 수집 -->
         <form action="https://formspree.io/f/xovkvyyj" method="POST">
           <label for="email" class="sr-only">이메일</label>
           <input id="email" name="email" type="email" placeholder="이메일을 입력하세요" required aria-label="이메일 입력" />
-          <button type="submit" class="btn">베타테스트 신청하기 →</button>
+          <button type="submit" class="btn large">베타테스트 신청하기 →</button>
         </form>
 
-        <p style="margin-top:14px;font-size:14px;opacity:.9">
+        <p style="margin-top:24px;font-size:16px;opacity:.9">
           <span class="kbd">무료 체험</span> · <span class="kbd">OCR 인식률 80%+</span> · 여행 리더 전용 <span class="kbd">가이드북 PDF</span> 증정
         </p>
       </div>
     </div>
   </section>
 
-  <!-- FAQ Section (Optional) -->
+  <!-- FAQ Section -->
   <section class="faq" aria-labelledby="faq">
-    <div class="container" style="max-width:820px">
-      <h2 id="faq" class="section-title">자주 묻는 질문</h2>
-      <div class="grid" style="gap:12px">
-        <details>
+    <div class="container" style="max-width:900px">
+      <h2 id="faq" class="section-title fade-in">자주 묻는 질문</h2>
+      <div class="grid" style="gap:16px">
+        <details class="fade-in">
           <summary>카드 사용도 지원되나요?</summary>
           <p>현재는 현금+영수증 중심으로 지원하며, 카드 연동은 추후 업데이트 예정입니다.</p>
         </details>
-        <details>
+        <details class="fade-in">
           <summary>인터넷이 없어도 사용할 수 있나요?</summary>
           <p>가능합니다. 오프라인 상태에서도 입력 가능하며, 네트워크 연결 시 자동 동기화됩니다.</p>
         </details>
-        <details>
+        <details class="fade-in">
           <summary>개인정보는 안전하게 보호되나요?</summary>
           <p>모든 데이터는 암호화 저장되며, 여행 종료 후 30일 뒤 자동 삭제됩니다.</p>
         </details>
@@ -298,8 +885,65 @@
   <footer>
     <div class="container">
       <p>© 2025 여행 정산 MVP · All rights reserved.</p>
-      <p style="margin-top:6px">배포: GitHub → Vercel · 정적 파일 <code>index.html</code></p>
+      <p style="margin-top:12px">배포: GitHub → Vercel · 정적 파일 <code>index.html</code></p>
     </div>
   </footer>
+
+  <script>
+    // Scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    // Observe all fade-in elements
+    document.querySelectorAll('.fade-in').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Parallax effect for floating elements
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const parallax = document.querySelectorAll('.floating-element');
+      
+      parallax.forEach((element, index) => {
+        const speed = 0.5 + (index * 0.1);
+        element.style.transform = `translateY(${scrolled * speed}px)`;
+      });
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Add hover effects to cards
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-8px) scale(1.02)';
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
+      });
+    });
+  </script>
 </body>
 </html>
