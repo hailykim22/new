@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>여행 정산, 사진 한 장으로 끝 | 베타 사전 신청</title>
+  <meta name="description" content="현금 위주 해외여행에서도 영수증 촬영만으로 실시간 정산과 갈등 없는 여행을 완성하세요. 베타테스트 사전 알림 신청." />
+  <meta property="og:title" content="여행 정산, 사진 한 장으로 끝 | 베타 사전 신청" />
+  <meta property="og:description" content="현금 위주 해외여행에서도 영수증 촬영만으로 실시간 정산과 갈등 없는 여행을 완성하세요." />
+  <meta name="theme-color" content="#1e90ff" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --bg: #0b1020;
+      --fg: #0f172a;
+      --text: #0f172a;
+      --muted:#475569;
+      --brand:#2563eb;
+      --brand-2:#22c55e;
+      --surface:#ffffff;
+      --surface-2:#f8fafc;
+      --ring: rgba(37,99,235,.35);
+      --shadow: 0 8px 30px rgba(2,6,23,.08);
+      --radius: 14px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family: "Pretendard", system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", Arial, sans-serif;
+      color: var(--text);
+      background:#ffffff;
+      line-height:1.6;
+    }
+    .container{max-width:1100px;margin:0 auto;padding:0 20px}
+    .btn{
+      display:inline-block;
+      background:linear-gradient(135deg,var(--brand),#3b82f6);
+      color:#fff; text-decoration:none; font-weight:700;
+      padding:14px 20px; border-radius:12px; border:0;
+      cursor:pointer; transition:transform .05s ease, box-shadow .2s ease;
+      box-shadow: 0 6px 14px rgba(37,99,235,.25);
+    }
+    .btn.secondary{
+      background:transparent; color:var(--brand);
+      border:1.5px solid var(--brand);
+      box-shadow:none;
+    }
+    .btn:active{transform:translateY(1px)}
+    .badge{
+      display:inline-block; padding:6px 10px; border-radius:999px;
+      background:rgba(34,197,94,.12); color:#16a34a; font-weight:700; font-size:.85rem;
+    }
+    header{
+      background: linear-gradient(120deg, #1e3a8a, #2563eb 55%, #22c55e);
+      color:#fff; position:relative; overflow:hidden;
+    }
+    .hero{
+      padding:72px 0 56px;
+      text-align:center;
+      background:
+        radial-gradient(1200px 400px at 50% 0%, rgba(255,255,255,.14), transparent 70%),
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,0));
+    }
+    .hero h1{
+      font-size: clamp(28px, 6vw, 44px);
+      line-height:1.15; margin:12px auto 14px; max-width: 880px;
+    }
+    .hero p{
+      font-size: clamp(14px, 2.8vw, 18px);
+      opacity:.95; margin:0 auto 26px; max-width: 760px;
+    }
+    .hero .cta{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:center;
+    }
+    .hero small{display:block; margin-top:10px; opacity:.9}
+    .card{
+      background:var(--surface);
+      border:1px solid #e5e7eb; border-radius: var(--radius);
+      box-shadow: var(--shadow); padding:22px;
+    }
+    section{padding:56px 0}
+    .section-title{
+      font-size: clamp(22px, 4.5vw, 32px); margin:0 0 8px; text-align:center;
+    }
+    .section-sub{color:var(--muted); text-align:center; margin:0 auto 26px; max-width:820px}
+    .grid{display:grid; gap:18px}
+    .grid-2{grid-template-columns: 1fr}
+    .grid-3{grid-template-columns: 1fr}
+    @media(min-width:760px){ .grid-2{grid-template-columns: repeat(2,1fr)} .grid-3{grid-template-columns: repeat(3,1fr)} }
+    .stat{
+      background:var(--surface-2); border:1px dashed #e2e8f0; border-radius:12px; padding:16px; text-align:center
+    }
+    .stat b{display:block; font-size:22px}
+    .feature{
+      display:flex; gap:14px; align-items:flex-start;
+    }
+    .feature .icon{
+      width:40px; height:40px; border-radius:10px;
+      background: #eef2ff; display:flex; align-items:center; justify-content:center;
+      color:#4f46e5; font-weight:900;
+    }
+    .list{margin:0; padding-left:18px}
+    .testi{
+      display:flex; flex-direction:column; gap:8px;
+    }
+    .testi b{font-size:15px}
+    .cta-wrap{
+      background: linear-gradient(135deg, #2563eb, #22c55e);
+      color:#fff; text-align:center; border-radius:20px; padding:32px 20px;
+      box-shadow: 0 12px 30px rgba(2,6,23,.18);
+    }
+    form{
+      display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:14px;
+    }
+    input[type="email"]{
+      width: min(420px, 100%);
+      padding:14px 16px; border-radius:10px; border:1.5px solid #cbd5e1;
+      outline: none; font-size:16px;
+    }
+    input[type="email"]:focus{border-color: var(--brand); box-shadow: 0 0 0 4px var(--ring)}
+    .faq details{
+      background:var(--surface); border:1px solid #e5e7eb; border-radius:14px; padding:14px 18px;
+    }
+    .faq summary{cursor:pointer; font-weight:700}
+    footer{padding:40px 0; color:#64748b; font-size:14px; text-align:center}
+    .tag{
+      display:inline-flex; align-items:center; gap:8px;
+      background:#eef2ff; color:#3730a3; border-radius:999px; padding:6px 10px; font-weight:700; font-size:12px;
+    }
+    .kbd{font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background:#0f172a; color:#fff; padding:2px 6px; border-radius:6px; font-size:12px}
+  </style>
+</head>
+<body>
+
+  <!-- Hero Section (A) -->
+  <header>
+    <div class="container hero">
+      <span class="badge">베타테스트 사전 신청</span>
+      <h1>귀국 후 엑셀로 머리 싸매던 여행 정산,<br/>이제 여행 중 <em>'사진 한 장'</em>으로 끝내세요.</h1>
+      <p>현금 위주 해외여행에서도, 영수증 촬영만으로 실시간 정산과 갈등 없는 여행 완성</p>
+      <div class="cta">
+        <a href="#apply" class="btn">사전 알림 신청하고 첫 베타테스트 참여하기</a>
+        <a href="#features" class="btn secondary">어떻게 해결하나요?</a>
+      </div>
+      <small>초기 가입자 한정, 무료 체험 기회 제공</small>
+    </div>
+  </header>
+
+  <!-- 문제 공감 Section (I) -->
+  <section aria-labelledby="problem">
+    <div class="container">
+      <h2 id="problem" class="section-title">여행 후 정산, 이렇게 힘드셨죠?</h2>
+      <p class="section-sub">현금 위주 국가에서 누가 얼마 냈는지 기록이 남지 않아, 귀국 후 엑셀·메신저 정산으로 갈등과 지연이 반복됩니다.</p>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <b>지민 (28세, 직장인, 여행 리더)</b>
+          <p>"베트남에서 친구 4명이랑 여행 갔는데, <b>현금만 받는 가게</b>가 많아서 누가 얼마를 냈는지 완전 혼란스러웠어요. 귀국 후 엑셀로 정리하다가 친구랑 언성 높인 적도 있었죠."</p>
+        </div>
+        <div class="card">
+          <b>소라 (24세, 대학생)</b>
+          <p>"국내 MT 때마다 정산 담당을 맡는데, <b>현금·카드 혼용</b>이라 매번 엑셀에 입력하는 게 너무 귀찮아요. 그냥 다 <b>자동으로 계산</b>해줬으면 좋겠어요."</p>
+        </div>
+      </div>
+
+      <div class="grid grid-3" style="margin-top:16px">
+        <div class="stat"><b>67%</b>여행 그룹이 정산 갈등 경험</div>
+        <div class="stat"><b>52%</b>귀국 후 1주 이상 지연</div>
+        <div class="stat"><b>80%</b>자동화 정산 니즈 표출</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 기능 소개 Section (D) -->
+  <section id="features" aria-labelledby="value">
+    <div class="container">
+      <h2 id="value" class="section-title">여행 중, '사진 한 장'으로 끝내는 정산</h2>
+      <p class="section-sub">현금 중심의 여행도, 복잡한 영수증도, 이제 번거로움 없이 해결하세요. 여행의 즐거움은 남기고, 정산의 스트레스는 내려놓으세요.</p>
+
+      <div class="grid grid-2">
+        <div class="card feature">
+          <div class="icon">AI</div>
+          <div>
+            <b>영수증 촬영 &amp; OCR 인식</b>
+            <p>영수증을 촬영하면 자동으로 금액과 항목을 추출합니다.</p>
+            <div class="tag">Camera</div>
+            <div class="tag">AI</div>
+            <div class="tag">OCR</div>
+          </div>
+        </div>
+
+        <div class="card feature">
+          <div class="icon">✓</div>
+          <div>
+            <b>중복 검증 &amp; 카테고리 자동 분류</b>
+            <p>같은 영수증 중복 입력을 막고 식비/교통비 등으로 자동 분류합니다.</p>
+            <div class="tag">Smart Filter</div>
+            <div class="tag">Duplicate Check</div>
+          </div>
+        </div>
+
+        <div class="card feature">
+          <div class="icon">Σ</div>
+          <div>
+            <b>기본 정산 계산 (N/N)</b>
+            <p>귀국 전, 개인별 부담금을 실시간으로 확인합니다.</p>
+            <div class="tag">Live Balance</div>
+            <div class="tag">Equal Split</div>
+          </div>
+        </div>
+
+        <div class="card feature">
+          <div class="icon">🗺</div>
+          <div>
+            <b>타임라인 뷰 (날짜/위치별)</b>
+            <p>언제·어디서 쓴 돈인지 한눈에 보이도록 자동 정렬됩니다.</p>
+            <div class="tag">Timeline</div>
+            <div class="tag">GPS</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 고객 사례 Section (D) -->
+  <section aria-labelledby="stories">
+    <div class="container">
+      <h2 id="stories" class="section-title">실제 사용자들이 이렇게 달라집니다.</h2>
+      <p class="section-sub">정산 담당자에서 해방되고, 귀국 전 모든 내역이 정리됩니다. 그룹 내 "공정하고 투명하다"는 인식이 확산됩니다.</p>
+
+      <div class="grid grid-2">
+        <div class="card testi">
+          <b>지민 — 여행 리더</b>
+          <ul class="list">
+            <li><b>Before:</b> 여행 후 2주 동안 친구들과 정산 갈등</li>
+            <li><b>After:</b> 귀국 당일 모든 내역 정리 완료, 단톡방에 PDF 공유</li>
+          </ul>
+          <em>"정산 담당에서 완전히 해방됐어요. 여행에만 집중할 수 있었어요!"</em>
+        </div>
+        <div class="card testi">
+          <b>현수 — 출장 담당자</b>
+          <ul class="list">
+            <li><b>Before:</b> 영수증 뭉치로 보고서 작성, 야근 3일</li>
+            <li><b>After:</b> 출장 종료 10분 만에 자동 보고서 완성</li>
+          </ul>
+          <em>"출장 스트레스가 80% 줄었어요. 회사에서도 인정받았습니다."</em>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section (A) -->
+  <section id="apply" aria-labelledby="apply-title">
+    <div class="container">
+      <div class="cta-wrap">
+        <h2 id="apply-title" class="section-title" style="color:#fff;margin-bottom:6px;">지금 신청하고, 정산 갈등 없는 첫 여행을 경험하세요.</h2>
+        <p style="max-width:760px;margin:10px auto 8px;opacity:.95">
+          현재 베타테스트 참가자를 모집 중입니다. 초기 가입자는 무료로 서비스를 체험할 수 있으며, 정식 런칭 시 우선 초대됩니다.
+        </p>
+
+        <!-- Formspree: 이메일 수집 (이메일만) -->
+        <form action="https://formspree.io/f/xovkvyyj" method="POST">
+          <label for="email" class="sr-only">이메일</label>
+          <input id="email" name="email" type="email" placeholder="이메일을 입력하세요" required aria-label="이메일 입력" />
+          <button type="submit" class="btn">베타테스트 신청하기 →</button>
+        </form>
+
+        <p style="margin-top:14px;font-size:14px;opacity:.9">
+          <span class="kbd">무료 체험</span> · <span class="kbd">OCR 인식률 80%+</span> · 여행 리더 전용 <span class="kbd">가이드북 PDF</span> 증정
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section (Optional) -->
+  <section class="faq" aria-labelledby="faq">
+    <div class="container" style="max-width:820px">
+      <h2 id="faq" class="section-title">자주 묻는 질문</h2>
+      <div class="grid" style="gap:12px">
+        <details>
+          <summary>카드 사용도 지원되나요?</summary>
+          <p>현재는 현금+영수증 중심으로 지원하며, 카드 연동은 추후 업데이트 예정입니다.</p>
+        </details>
+        <details>
+          <summary>인터넷이 없어도 사용할 수 있나요?</summary>
+          <p>가능합니다. 오프라인 상태에서도 입력 가능하며, 네트워크 연결 시 자동 동기화됩니다.</p>
+        </details>
+        <details>
+          <summary>개인정보는 안전하게 보호되나요?</summary>
+          <p>모든 데이터는 암호화 저장되며, 여행 종료 후 30일 뒤 자동 삭제됩니다.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>© 2025 여행 정산 MVP · All rights reserved.</p>
+      <p style="margin-top:6px">배포: GitHub → Vercel · 정적 파일 <code>index.html</code></p>
+    </div>
+  </footer>
+</body>
+</html>
