@@ -1059,10 +1059,16 @@
         </p>
 
         <!-- Formspree: 이메일 수집 -->
-        <form action="https://formspree.io/f/xovkvyyj" method="POST">
+        <form id="emailForm" action="https://formspree.io/f/xovkvyyj" method="POST">
           <label for="email" class="sr-only">이메일</label>
           <input id="email" name="email" type="email" placeholder="이메일을 입력하세요" required aria-label="이메일 입력" />
           <button type="submit" class="btn large">베타테스트 신청하기 →</button>
+          
+          <!-- Hidden fields for MBTI data -->
+          <input type="hidden" id="mbtiType" name="mbti_type" value="" />
+          <input type="hidden" id="travelStyle" name="travel_style" value="" />
+          <input type="hidden" id="mbtiDescription" name="mbti_description" value="" />
+          <input type="hidden" id="answerSummary" name="answer_summary" value="" />
         </form>
 
         <p style="margin-top:24px;font-size:16px;opacity:.9">
@@ -1360,6 +1366,7 @@
     // Quiz state
     let currentQuestion = 0;
     let answers = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+    let currentMBTIResult = null;
 
     // Initialize quiz
     function initQuiz() {
@@ -1410,6 +1417,14 @@
       const mbtiType = calculateMBTI();
       const result = quizData.results[mbtiType];
       
+      // Store current MBTI result globally
+      currentMBTIResult = {
+        type: mbtiType,
+        title: result.title,
+        description: result.description,
+        answers: { ...answers }
+      };
+      
       document.getElementById('questionCard').style.display = 'none';
       document.getElementById('resultCard').style.display = 'block';
       
@@ -1429,6 +1444,43 @@
         `;
         featuresContainer.appendChild(featureItem);
       });
+
+      // Update hidden form fields with MBTI data
+      updateEmailFormWithMBTI();
+
+      // Send MBTI result to Formspree
+      sendMBTIResult(mbtiType, result);
+    }
+
+    // Send MBTI result to Formspree
+    function sendMBTIResult(mbtiType, result) {
+      const formData = new FormData();
+      formData.append('mbti_type', mbtiType);
+      formData.append('travel_style', result.title);
+      formData.append('description', result.description);
+      formData.append('test_completed', 'true');
+      formData.append('timestamp', new Date().toISOString());
+      
+      // Get user's answers for analysis
+      const answerSummary = Object.entries(answers)
+        .map(([key, value]) => `${key}:${value}`)
+        .join(', ');
+      formData.append('answer_summary', answerSummary);
+
+      fetch('https://formspree.io/f/xovkvyyj', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => {
+        if (response.ok) {
+          console.log('MBTI result sent successfully');
+        } else {
+          console.log('Failed to send MBTI result');
+        }
+      })
+      .catch(error => {
+        console.log('Error sending MBTI result:', error);
+      });
     }
 
     // Calculate MBTI type from answers
@@ -1443,10 +1495,25 @@
       return mbti;
     }
 
+    // Update email form with MBTI data
+    function updateEmailFormWithMBTI() {
+      if (currentMBTIResult) {
+        document.getElementById('mbtiType').value = currentMBTIResult.type;
+        document.getElementById('travelStyle').value = currentMBTIResult.title;
+        document.getElementById('mbtiDescription').value = currentMBTIResult.description;
+        
+        const answerSummary = Object.entries(currentMBTIResult.answers)
+          .map(([key, value]) => `${key}:${value}`)
+          .join(', ');
+        document.getElementById('answerSummary').value = answerSummary;
+      }
+    }
+
     // Restart quiz
     function restartQuiz() {
       document.getElementById('questionCard').style.display = 'block';
       document.getElementById('resultCard').style.display = 'none';
+      currentMBTIResult = null;
       initQuiz();
     }
 
@@ -1508,6 +1575,20 @@
     // Initialize quiz when page loads
     document.addEventListener('DOMContentLoaded', function() {
       initQuiz();
+      
+      // Add form submit event listener
+      const emailForm = document.getElementById('emailForm');
+      if (emailForm) {
+        emailForm.addEventListener('submit', function(e) {
+          // Ensure MBTI data is included before submission
+          updateEmailFormWithMBTI();
+          
+          // Add a small delay to ensure data is sent
+          setTimeout(() => {
+            console.log('Email form submitted with MBTI data:', currentMBTIResult);
+          }, 100);
+        });
+      }
     });
   </script>
 </body>
